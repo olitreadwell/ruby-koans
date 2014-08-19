@@ -14,13 +14,23 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-    if a == b && b == c
-        :equilateral
-    elsif a==b || b ==c || a==c
-        :isosceles
-    else
-        :scalene
+    sides_array = [a, b, c]
+    raise TriangleError, "No two sides can add to be less than or equal to the other side" if (a+b <= c) || (a+c <= b) || (b+c <= a)
+
+    sides_array.each do |element|
+        raise TriangleError, "Triangle side cannot have a length less or equal to 0" if element <= 0
     end
+    if a == b && b == c
+        return :equilateral
+    end
+    if (a==b && a!=c) || (a==c && a!=b) || (b==c && b!=a)
+        return :isosceles
+    end
+    if a!=b && a!=c && b!=c
+        return :scalene
+    end
+
+
 end
 
 # Error class used in part 2.  No need to change this code.
